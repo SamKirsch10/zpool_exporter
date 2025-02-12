@@ -1,0 +1,20 @@
+FROM golang:1.24 AS buildenv
+
+WORKDIR /app
+COPY go.mod go.sum ./
+COPY *.go ./
+COPY internal ./internal
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o zpool_status
+
+FROM debian
+
+ENV TZ=America/New_York
+
+COPY debian.sources /etc/apt/sources.list.d/debian.sources
+
+RUN apt update && \
+    apt -t experimental install -y zfsutils-linux
+
+COPY --from=buildenv /app/zpool_status /app/
+
+ENTRYPOINT [ "/app/zpool_status" ]
