@@ -99,8 +99,7 @@ func statusMetrics() {
 		log.Debugf("Checking pool %s", pool)
 		for _, state := range zpoolStates {
 			var status float64
-			state = getPoolState(data)
-			if ZpoolState(data.State) == state {
+			if getPoolState(data) == state {
 				status = 1
 			}
 			log.Debugf("setting 'zpool_state' of pool %s with state to %s with value %f", data.Name, state, status)
