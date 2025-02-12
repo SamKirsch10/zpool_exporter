@@ -1,6 +1,6 @@
 module github.com/samkirsch10/zpool_exporter
 
-go 1.24.0
+go 1.23.0
 
 require (
 	github.com/gorilla/mux v1.8.0

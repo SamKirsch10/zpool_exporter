@@ -1,4 +1,4 @@
-FROM golang:1.24-rc AS buildenv
+FROM golang:1.23 AS buildenv
 
 WORKDIR /app
 COPY go.mod go.sum ./
